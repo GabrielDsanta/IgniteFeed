@@ -1,0 +1,94 @@
+
+
+
+.Comment{
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.Comment > img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 8px;
+}
+
+.CommentBox{
+    flex: 1;   
+}
+
+.CommentContent{
+    background-color: var(--gray-700);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.CommentContent header{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.authorAndTime{
+    display: flex;
+    flex-direction: column;
+}
+
+.authorAndTime strong{
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.authorAndTime time{
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--gray-400);
+}
+
+.CommentContent header button{
+    background-color: transparent;
+    border: 0;
+    color: var(--gray-400);
+    line-height: 0;
+    border-radius: 2px;
+}
+
+.CommentContent header button:hover{
+    color: var(--red-500);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.CommentContent p {
+    margin-top: 1rem;
+    color: var(--gray-300);
+}
+
+.CommentBox footer{
+    margin-top: 1rem;
+}
+
+.CommentBox footer button{
+    background: transparent;
+    border: 0;
+    color: var(--gray-400);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.CommentBox footer button:hover{
+    color: var(--green-300);
+    transition: .2s;
+}
+
+.CommentBox footer button svg{
+    margin-right: .5rem;
+}
+
+.CommentBox footer button span::before{
+    padding: 0 .25rem;
+    content: "\2022";
+}
