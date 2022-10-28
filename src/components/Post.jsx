@@ -3,8 +3,15 @@ import styles from './Post.module.css'
 import { Comment } from './Comment'
 import { Avatar } from './Avatar'
 
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export function Post({ author , publishedAte}){
+
+export function Post({ author , publishedAte, content}){
+    const dataFormatt = format(publishedAte, "d 'de' LLLL 'às' HH:mm'h'", {locale: ptBR,})
+
+    const dataRelativeToNow = formatDistanceToNow(publishedAte, {locale: ptBR, addSuffix: true,})
+
     return(
         <article className={styles.post}>
             <header className={styles.Header}>
@@ -16,40 +23,36 @@ export function Post({ author , publishedAte}){
                     </div>
                 </div>
 
-                <time title="27 De Outubro às 14:03" dateTime="2022-10-27 14:02:30">Publicado há 1h</time>
+                <time title={dataFormatt} dateTime={publishedAte.toISOString()}>{dataRelativeToNow}</time>
             </header>
 
             <div className={styles.content}>
-            <p>Fala galeraa 👋</p>
+                {content.map(item => {
 
-           <p> 
-                Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. 
-                O nome do projeto é DoctorCare 🚀
-           </p>
+                    if(item.type === 'paragraph'){
+                        return <p>{item.content}</p>
+                    }
+                    
+                    else if(item.type === 'link'){
+                        return <p><a href='#'>{item.content}</a></p>
+                    }
+                })}
+            </div>
 
-            <p>jane.design/doctorcare</p>
+            <form className={styles.commentForm}>
+                <strong>Deixe seu feedback</strong>
 
-            <p>
-                <a href="#">#novoprojeto</a>{' '}
-                <a href="#">#nlw</a>{' '}
-                <a href="#">#rocketseat</a>
-            </p>
-        </div>
+                <textarea placeholder="Deixe um cometário"/>
 
-        <form className={styles.commentForm}>
-            <strong>Deixe seu feedback</strong>
-
-            <textarea placeholder="Deixe um cometário"/>
-
-            <footer>
-                <button type='submit'>Publicar</button>
-            </footer>
-        </form>
-        <div className={styles.commentList}>
-            <Comment />
-            <Comment />
-            <Comment />
-        </div>
+                <footer>
+                    <button type='submit'>Publicar</button>
+                </footer>
+            </form>
+            <div className={styles.commentList}>
+                <Comment />
+                <Comment />
+                <Comment />
+            </div>
     </article>
     )
 }
