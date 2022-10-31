@@ -5,10 +5,28 @@ import { Avatar } from './Avatar'
 
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
+
+interface Author{
+    name: string,
+    role: string,
+    avatarUrl?: string
+}
+
+interface Content{
+    type: 'paragraph' | 'link',
+    content: string,
+}
+
+export interface PostProps{
+    id?: number,
+    author: Author,
+    publishedAte: Date,
+    content: Content[],
+}
 
 
-export function Post({ author , publishedAte, content}){
+export function Post({ author , publishedAte, content}: PostProps){
 
     const [comments, setNewComments] = useState(['Post Muito Bacana'], )
 
@@ -24,7 +42,7 @@ export function Post({ author , publishedAte, content}){
         <article className={styles.post}>
             <header className={styles.Header}>
                 <div className={styles.author}>
-                    <Avatar hasBorder src={author.authorUrl} alt="" />
+                    <Avatar hasBorder src={author.avatarUrl} alt="" />
                     <div className={styles.authorInfo}>
                         <strong>{author.name}</strong>
                         <span>{author.role}</span>
@@ -66,22 +84,22 @@ export function Post({ author , publishedAte, content}){
     </article>
     )
 
-    function AddComment(){
-        event.preventDefault()
+    function AddComment(e: FormEvent){
+        e.preventDefault()
         setNewComments([...comments, newCommentText])
         setNewCommentText('')
     }
 
-    function NewCommentChange(){
-        event.target.setCustomValidity('')
-        setNewCommentText(event.target.value)
+    function NewCommentChange(e: ChangeEvent<HTMLTextAreaElement>){
+        e.target.setCustomValidity('')
+        setNewCommentText(e.target.value)
     }
 
-    function ValidateTextArea(){
-        event.target.setCustomValidity('Este campo é obrigatório!')
+    function ValidateTextArea(e: InvalidEvent<HTMLTextAreaElement>){
+        e.target.setCustomValidity('Este campo é obrigatório!')
     }
 
-    function DeleteComment(comment){
+    function DeleteComment(comment: string){
         const commentToBeDeleted = comments.filter((commentDelete) => {
             return comment !== commentDelete
         })

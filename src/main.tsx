@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { Header } from './components/Header'
-import { Post } from './components/Post'
+import { Post, PostProps } from './components/Post'
 import { Sidebar } from './components/Sidebar'
 import { Comment } from './components/Comment'
 
@@ -11,11 +11,11 @@ import './global.css'
 import styles from './App.module.css'
 
 
-const Posts = [
+const Posts: PostProps[] = [
   {
     id: 1,
     author:{
-      authorUrl: 'https://github.com/GabrielDsanta.png',
+      avatarUrl: 'https://github.com/GabrielDsanta.png',
       name: 'Gabriel Santana',
       role: 'Web Developer'
     },
@@ -42,7 +42,7 @@ const Posts = [
   {
     id: 2,
     author:{
-      authorUrl: 'https://github.com/diego3g.png',
+      avatarUrl: 'https://github.com/diego3g.png',
       name: 'Diego Fernandes',
       role: 'CTO RocketSeat'
     },
@@ -69,7 +69,7 @@ const Posts = [
 ] 
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Header/>
       <div className={styles.wrapper}>
@@ -81,8 +81,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Post
                 key={post.id}
                 author={post.author}
-                content={post.content}
                 publishedAte={post.publishedAte}
+                content={post.content}
               />
             )
           })}
